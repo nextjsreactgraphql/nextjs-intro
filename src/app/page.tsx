@@ -10,7 +10,7 @@ export default function LandingPage() {
         prefetch={false}
         className={"cursor-pointer hover:underline"}
       >
-        Zu den Artikel
+        Zu den Artikeln
       </Link>
       {/*<Link href={"/hamburg"}>Nach HH</Link>*/}
     </section>
