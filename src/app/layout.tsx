@@ -2,8 +2,10 @@ import "../globals.css";
 
 import type { Metadata } from "next";
 
+import GlobalHeader from "@/components/layout/GlobalHeader";
+
 export const metadata: Metadata = {
-  title: "ecolify",
+  title: "ecolify Root",
   description: "Next.js Workshop Application",
 };
 
@@ -15,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <title>ecolify Demo</title>
+        {/*<title>ecolify Demo</title>*/}
         {/*
 
         NOTE:
@@ -32,9 +34,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`flex min-h-svh flex-col overflow-y-scroll font-inter text-teal-900 antialiased`}
       >
-        <div className={"flex items-center justify-center text-4xl"}>
-          <p>Hello Next.js Workshop 👋</p>
-        </div>
+        <GlobalHeader />
+        {children}
       </body>
     </html>
   );
