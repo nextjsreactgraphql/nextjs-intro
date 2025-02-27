@@ -1,6 +1,8 @@
 import Link from "next/link";
 
 export default function LandingPage() {
+  console.log("LandingPage rendered at", new Date().toISOString());
+
   return (
     <section>
       <h1>Hallo Next.js</h1>
