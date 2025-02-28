@@ -2,6 +2,12 @@ import { fetchArticle } from "@/queries/queries";
 import { notFound } from "next/navigation";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
+import { Sidebar } from "@/components/Sidebar";
+import TwoColumnLayout from "@/components/layout/TwoColumnLayout";
+import { SidebarBox } from "@/components/SidebarBox";
+import CommentList from "@/components/articlepage/CommentList";
+import { Suspense } from "react";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 // export function generateStaticParams() {
 //   console.log("Generating Static Params");
@@ -19,6 +25,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   // const p = await params;
   const { articleId } = await params;
 
+  console.log("ARTICLE ID", articleId);
+
   // const articleId = (await params).articleId;
 
   const article = await fetchArticle(articleId);
@@ -30,7 +38,23 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   return (
     <main>
       <ArticleBanner article={article} />
-      <ArticleBody body={article.body} />
+      <TwoColumnLayout
+        sidebar={
+          <Sidebar>
+            <SidebarBox title={"Kommentare"}>
+              <Suspense
+                fallback={
+                  <LoadingIndicator>Kommentare werden gelesen</LoadingIndicator>
+                }
+              >
+                <CommentList articleId={articleId} />
+              </Suspense>
+            </SidebarBox>
+          </Sidebar>
+        }
+      >
+        <ArticleBody body={article.body} />
+      </TwoColumnLayout>
     </main>
   );
 }
