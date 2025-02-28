@@ -8,6 +8,7 @@ import { SidebarBox } from "@/components/SidebarBox";
 import CommentList from "@/components/articlepage/CommentList";
 import { Suspense } from "react";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import RelatedArticlesSlider from "@/app/articles/[articleId]/RelatedArticlesSlider";
 
 // export function generateStaticParams() {
 //   console.log("Generating Static Params");
@@ -41,6 +42,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <TwoColumnLayout
         sidebar={
           <Sidebar>
+            <SidebarBox title={"Related Articles"}>
+              <RelatedArticlesSlider />
+            </SidebarBox>
             <SidebarBox title={"Kommentare"}>
               <Suspense
                 fallback={
