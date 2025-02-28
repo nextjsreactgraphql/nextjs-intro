@@ -2,12 +2,20 @@
 
 import { Button } from "@/components/Button";
 import { dummyRelatedArticles } from "@/demo-config";
-import { useState } from "react";
+import { use, useState } from "react";
 import RelatedArticleBox from "@/components/articlepage/RelatedArticleBox";
+import { RelatedArticle } from "@/types";
 
-export default function RelatedArticlesSlider() {
+type RelatedArticlesSliderProps = {
+  relatedArticlesPromise: Promise<RelatedArticle[]>;
+};
+
+export default function RelatedArticlesSlider({
+  relatedArticlesPromise,
+}: RelatedArticlesSliderProps) {
   // load this from server later, dont care for now...
-  const articles = dummyRelatedArticles;
+
+  const articles = use(relatedArticlesPromise);
 
   const [currentArticle, setCurrentArticle] = useState(0);
 

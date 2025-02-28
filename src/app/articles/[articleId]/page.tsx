@@ -1,4 +1,4 @@
-import { fetchArticle } from "@/queries/queries";
+import { fetchArticle, fetchRelatedArticles } from "@/queries/queries";
 import { notFound } from "next/navigation";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
@@ -30,6 +30,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   // const articleId = (await params).articleId;
 
+  const relatedArticlesPromise = fetchRelatedArticles(articleId);
+
   const article = await fetchArticle(articleId);
 
   if (!article) {
@@ -43,7 +45,13 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         sidebar={
           <Sidebar>
             <SidebarBox title={"Related Articles"}>
-              <RelatedArticlesSlider />
+              <Suspense
+                fallback={<LoadingIndicator>Loading Articles</LoadingIndicator>}
+              >
+                <RelatedArticlesSlider
+                  relatedArticlesPromise={relatedArticlesPromise}
+                />
+              </Suspense>
             </SidebarBox>
             <SidebarBox title={"Kommentare"}>
               <Suspense
