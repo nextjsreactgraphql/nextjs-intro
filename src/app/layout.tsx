@@ -3,6 +3,7 @@ import "../globals.css";
 import type { Metadata } from "next";
 
 import GlobalHeader from "@/components/layout/GlobalHeader";
+import { NewsletterRegistration } from "@/components/NewsletterRegistration";
 
 
 export const metadata: Metadata = {
@@ -50,6 +51,7 @@ export default function RootLayout({
         className={`flex min-h-svh flex-col overflow-y-scroll font-inter text-teal-900 antialiased`}
       >
         <GlobalHeader />
+        <NewsletterRegistration />
           {children}
       </body>
     </html>
