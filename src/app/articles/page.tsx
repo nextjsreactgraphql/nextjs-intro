@@ -2,15 +2,18 @@
 import { fetchArticleList } from "@/queries/queries";
 import ArticleListGrid from "@/components/articlelistpage/ArticleListGrid";
 import ArticleCard from "@/components/ArticleCard";
+import { headers } from "next/headers";
 
 export default async function ArticlesPage() {
-
   //
   const response = await fetchArticleList();
 
-  console.log("ArticleListPage", new Date().toISOString());
+  const date = new Date().toISOString();
+
+  console.log("RENDERING ArticleListPage", date);
   return <div className={"container mx-auto"}>
     <ArticleListGrid>
+      <p>Aktuelle Zeit: {date}</p>
       {response.articles.map(
         article => <ArticleCard key={article.id} article={article} />
       )}

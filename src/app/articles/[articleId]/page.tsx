@@ -9,8 +9,21 @@ type ArticlePageProps = {
   }>
 }
 
+export async function generateStaticParams() {
+
+  return [
+    {articleId: "A_1"},
+    {articleId: "A_2"}
+  ]
+}
+
 export default async function ArticlePage(props: ArticlePageProps) {
+
   const {articleId} = await props.params;
+
+  console.log("RENDERING ArticlePage ", new Date().toISOString(), articleId)
+
+
   // const params = await props.params;
   // const articleId = params.articleId;
 
