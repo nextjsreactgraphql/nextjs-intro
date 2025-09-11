@@ -2,10 +2,27 @@ import "../globals.css";
 
 import type { Metadata } from "next";
 
+import GlobalHeader from "@/components/layout/GlobalHeader";
+
+
 export const metadata: Metadata = {
   title: "ecolify",
   description: "Next.js Workshop Application",
 };
+
+// function A() {
+//   return <B>hallo!</B>
+// }
+//
+// type BProps = {
+//   children: ReactNode
+// }
+//
+// function B(props: BProps) {
+//   return <div>
+//     {props.children}
+//   </div>
+// }
 
 export default function RootLayout({
   children,
@@ -32,9 +49,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`flex min-h-svh flex-col overflow-y-scroll font-inter text-teal-900 antialiased`}
       >
-        <div className={"flex items-center justify-center text-4xl"}>
-          <p>Hello Next.js Workshop 👋</p>
-        </div>
+        <GlobalHeader />
+          {children}
       </body>
     </html>
   );
