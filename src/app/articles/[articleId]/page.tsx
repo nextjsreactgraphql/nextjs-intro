@@ -9,13 +9,13 @@ type ArticlePageProps = {
   }>
 }
 
-export async function generateStaticParams() {
-
-  return [
-    {articleId: "A_1"},
-    {articleId: "A_2"}
-  ]
-}
+// export async function generateStaticParams() {
+//
+//   return [
+//     {articleId: "A_1"},
+//     {articleId: "A_2"}
+//   ]
+// }
 
 export default async function ArticlePage(props: ArticlePageProps) {
 

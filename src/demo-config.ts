@@ -7,10 +7,10 @@ import { RelatedArticle } from "@/types";
  */
 export const delayConfig: Record<string, number> = {
   // Article-List on `/articles`
-  GetArticleList: 0,
+  GetArticleList: 500,
 
   // Single Article on `/articles/[articleId]`
-  GetArticle: 0,
+  GetArticle: 19000,
 
   // Submitting the Newsletter form
   SubscribeNewsletter: 150,

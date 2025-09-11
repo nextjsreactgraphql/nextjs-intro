@@ -13,7 +13,6 @@ export default async function ArticlesPage() {
   console.log("RENDERING ArticleListPage", date);
   return <div className={"container mx-auto"}>
     <ArticleListGrid>
-      <p>Aktuelle Zeit: {date}</p>
       {response.articles.map(
         article => <ArticleCard key={article.id} article={article} />
       )}

@@ -40,7 +40,6 @@ export default function ArticleCard({ article }: ArticleCardProps) {
             }
           >
             <Link
-              prefetch={false}
               href={`/articles/${article.id}`}>
             {article.title}
             </Link>
