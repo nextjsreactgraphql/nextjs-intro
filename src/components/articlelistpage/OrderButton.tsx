@@ -1,11 +1,35 @@
 "use client";
 import { ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { Button, CheckLabel } from "@/components/Button";
 
 type OrderButtonProps = {
   children: ReactNode;
   orderBy?: "DATE" | "CATEGORY" | "LIKES";
 };
 export function OrderButton({ orderBy, children }: OrderButtonProps) {
+
+  const currentSearchParams = useSearchParams();
+  // currentSearchParams.set("fasdfsadf")
+  const currentOrderBy = currentSearchParams.get("orderBy")
+  const isActive = orderBy === currentOrderBy;
+
+  const newSearchParams = new URLSearchParams(
+    currentSearchParams
+  );
+  if (orderBy) {
+    newSearchParams.set("orderBy", orderBy)
+  } else {
+    newSearchParams.delete("orderBy")
+  }
+
+  return <Link href={`/articles?${newSearchParams.toString()}`}>
+    <Button checked={isActive}>
+      <CheckLabel checked={isActive}>{children}</CheckLabel>
+  </Button>
+  </Link>
+
   // todo:
   //  - Diesem Button wird eine Sortierreihenfolge als String übergeben ("orderBy")
   //  - Wenn auf den Button geklickt wird, soll die Sortierreihenfolge in der URL
