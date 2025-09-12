@@ -3,6 +3,7 @@
 - Zum Speichern des Likes kannst du dort `mutateArticleLikes` verwenden
 - In `LikesWidget` musst du beim Clicken auf den Button deine Server Function aufrufen und die `articleId` übergeben
 - Du kannst den Funktionsaufruf mit einer Transition umschliessen, um Feedback anzuzeigen
+  - Um das "Liken" langsam zu machen, in `demo-config.ts` die Konstante `AddLike` auf einen Wert (z.B. 2000) setzen, der den Request um X Millisekunden verzögert
 
 # Material
 
