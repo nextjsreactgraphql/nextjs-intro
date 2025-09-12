@@ -1,29 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { Article } from "@/types";
-import ArticleCard from "@/components/ArticleCard";
+import { ReactNode, use, useState } from "react";
+import { Article, RelatedArticle } from "@/types";
+import RelatedArticleCard from "@/app/articles/[articleId]/RelatedArticleCard";
 
 type RelatedArticleSliderProps = {
-  message: string;
-  initialIndex: number;
-  article: Article;
-  date: Date
+ relatedArticles: Promise<ReactNode[]>
 }
 
 export default function RelatedArticleSlider(props: RelatedArticleSliderProps) {
-console.log("DATUM", new Date().toISOString());
-  const [index, setIndex] = useState(props.initialIndex);
 
-  return <div>
+  const renderedCards = use(props.relatedArticles);
+
+console.log("DATUM", new Date().toISOString());
+  const [index, setIndex] = useState(0);
+
+  return <div className={"p-8 space-y-4"}>
     <button
       onClick={() => setIndex(index-1)}
     >Vorher</button>
-    <p>Message: {props.message}</p>
-    <p>Artikel: {props.article.title}</p>
-    <p>Date: {props.date.toISOString()}</p>
-    <ArticleCard article={props.article} />
-    {index}
+    {renderedCards[index]}
+    {/*<RelatedArticleCard*/}
+    {/*  relatedArticle={props.relatedArticles[index]*/}
+    {/*} />*/}
     <button
       onClick={() => setIndex(index+1)}
     >Nachher</button>
