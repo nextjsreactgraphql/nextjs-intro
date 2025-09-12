@@ -12,23 +12,23 @@ type LikesWidgetProps = {
 
 export function LikesWidget({ articleId, currentLikes }: LikesWidgetProps) {
 
-  const [likes, setLikes] = useState(currentLikes)
+  // const [likes, setLikes] = useState(currentLikes)
 
   const [optimisticLikes, setOptimisticLikes] =
-    useOptimistic(likes);
+    useOptimistic(currentLikes);
 
   const [isTransitionRunning, startTransition]
    = useTransition();
 
   const handleClick = () => {
     startTransition(  async ()  => {
-      setOptimisticLikes(likes + 1);
+      setOptimisticLikes(currentLikes + 1);
       // kein Refresh!
       // mutateArticleLikes(articleId)
       // const greeting = sayHello("Susi");
       // console.log("Greeting", greeting);
       const newLikes =await likeArticle(articleId);
-      setLikes(newLikes);
+      // setLikes(newLikes);
   })
 
   }
@@ -46,7 +46,7 @@ export function LikesWidget({ articleId, currentLikes }: LikesWidgetProps) {
         <span className={"ms-2"}>
           {isTransitionRunning ?<LikeIndicator />: <LikeIcon />}
 
-          {optimisticLikes} (likes: {likes})
+          {optimisticLikes}
         </span>
       </button>
     </div>

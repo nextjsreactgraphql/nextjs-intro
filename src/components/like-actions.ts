@@ -11,8 +11,8 @@ export async function likeArticle(articleId: string) {
   console.log("LIKE ", articleId);
   const newLikes = await mutateArticleLikes(articleId);
 
-  // revalidatePath("/articles")
-  // revalidatePath("/articles/" + articleId);
+  revalidatePath("/articles")
+  revalidatePath("/articles/" + articleId);
 
   return newLikes || 0;
 }
