@@ -9,7 +9,6 @@ type OrderButtonProps = {
   orderBy?: "DATE" | "CATEGORY" | "LIKES";
 };
 export function OrderButton({ orderBy, children }: OrderButtonProps) {
-
   const currentSearchParams = useSearchParams();
   // currentSearchParams.set("fasdfsadf")
   const currentOrderBy = currentSearchParams.get("orderBy")
@@ -48,5 +47,4 @@ export function OrderButton({ orderBy, children }: OrderButtonProps) {
   //     - Zum Testen kannst du beliebige Search Params in die URL einfügen
   //       z.B. ?orderBy=DATE&testparamter=einszweidrei
 
-  return "todo";
 }
