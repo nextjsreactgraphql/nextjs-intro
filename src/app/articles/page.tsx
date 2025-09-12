@@ -2,7 +2,6 @@
 import { fetchArticleList } from "@/queries/queries";
 import ArticleListGrid from "@/components/articlelistpage/ArticleListGrid";
 import ArticleCard from "@/components/ArticleCard";
-import { headers } from "next/headers";
 
 export default async function ArticlesPage() {
   //

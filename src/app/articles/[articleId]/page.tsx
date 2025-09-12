@@ -2,6 +2,7 @@ import { fetchArticle } from "@/queries/queries";
 import { notFound, redirect } from "next/navigation";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
+import RelatedArticleSlider from "@/app/articles/[articleId]/RelatedArticleSlider";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -36,7 +37,12 @@ export default async function ArticlePage(props: ArticlePageProps) {
 
   return <main>
     <ArticleBanner article={article} />
+    <RelatedArticleSlider message={"in a bottle"}
+      initialIndex={7} article={article}
+    date={new Date()}
+    />
     <ArticleBody body={article.body} />
+
   </main>;
 
 }
