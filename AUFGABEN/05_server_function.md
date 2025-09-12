@@ -1,7 +1,7 @@
-- Lege die Datei 'actions.ts' an
+- Lege eine Datei für deine Server Function an (z.B. `actions.ts`) an
 - Diese soll eine Server Function zum "liken" eines Artikels haben
-- Zum Speichern des Likes kannst du dort mutateArticleLikes verwenden
-- In `LikeButton` musst du beim Clicken auf den Button deine Server Function aufrufen und die `articleId` übergeben
+- Zum Speichern des Likes kannst du dort `mutateArticleLikes` verwenden
+- In `LikesWidget` musst du beim Clicken auf den Button deine Server Function aufrufen und die `articleId` übergeben
 - Du kannst den Funktionsaufruf mit einer Transition umschliessen, um Feedback anzuzeigen
 
 # Material
