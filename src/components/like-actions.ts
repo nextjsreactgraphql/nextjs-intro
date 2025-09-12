@@ -9,8 +9,10 @@ export async function sayHello(name: string) {
 
 export async function likeArticle(articleId: string) {
   console.log("LIKE ", articleId);
-  await mutateArticleLikes(articleId);
+  const newLikes = await mutateArticleLikes(articleId);
 
-  revalidatePath("/articles")
-  revalidatePath("/articles/" + articleId);
+  // revalidatePath("/articles")
+  // revalidatePath("/articles/" + articleId);
+
+  return newLikes || 0;
 }
