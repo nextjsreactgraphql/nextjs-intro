@@ -1,17 +1,34 @@
 import "../globals.css";
 
 import type { Metadata } from "next";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "ecolify",
   description: "Next.js Workshop Application",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+// type CardProps = {
+//   children: ReactNode
+// }
+//
+// function Card(props: CardProps) {
+//   return <div className={"border"}>
+//     {props.children}
+//   </div>
+// }
+//
+// function ArticleCard() {
+//   return <Card>
+//     <h1>Hallo Welt</h1>
+//   </Card>
+// }
+
+type RootLayoutProps = {
+  children: ReactNode
+}
+
+export default function RootLayout(props: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
@@ -32,8 +49,8 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`flex min-h-svh flex-col overflow-y-scroll font-inter text-teal-900 antialiased`}
       >
-        <div className={"flex items-center justify-center text-4xl"}>
-          <p>Hello Next.js Workshop 👋</p>
+        <div className={"container mx-auto border border-red-700"}>
+        {props.children}
         </div>
       </body>
     </html>
