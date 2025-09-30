@@ -16,7 +16,7 @@ export const delayConfig: Record<string, number> = {
   SubscribeNewsletter: 150,
 
   // Reading comments on `/articles/[articleId]`
-  GetCommentList: 0,
+  GetCommentList: 9000,
 
   // Reading related articles on `/articles/[articleId]`,
   GetRelatedArticles: 2400,
