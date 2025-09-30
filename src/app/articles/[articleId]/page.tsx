@@ -9,10 +9,25 @@ import { fetchArticle } from "@/queries/queries";
 type ArticlePageProps = {
   params: Promise<{
     articleId: string
-  }>
+  }>,
+}
+
+export async function generateStaticParams() {
+
+  return [
+    { articleId: "A_1"},
+    { articleId: "A_2"},
+    { articleId: "A_7"},
+  ]
+
 }
 
 export default async function ArticlePage({params}: ArticlePageProps) {
+
+  // console.log("Rendering ArticlePage", new Date().toLocaleTimeString());
+
+
+
 
   const {articleId} = await params;
 

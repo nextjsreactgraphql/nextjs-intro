@@ -34,7 +34,10 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           <div className={"tracking-wide text-teal-700"}>
             {article.category}
           </div>
-          <Link href={`/articles/${article.id}`}>
+          <Link
+            prefetch={false}
+            href={`/articles/${article.id}`}
+          >
           <H1
             className={
               "font-opensans font-bold text-teal-700 hover:text-teal-800 hover:decoration-4"
