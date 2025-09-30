@@ -3,6 +3,9 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
 
+import GlobalHeader from "@/components/layout/GlobalHeader";
+import { NewsletterRegistration } from "@/components/NewsletterRegistration";
+
 export const metadata: Metadata = {
   title: "ecolify",
   description: "Next.js Workshop Application",
@@ -49,8 +52,11 @@ export default function RootLayout(props: RootLayoutProps) {
         suppressHydrationWarning
         className={`flex min-h-svh flex-col overflow-y-scroll font-inter text-teal-900 antialiased`}
       >
-        <div className={"container mx-auto border border-red-700"}>
-        {props.children}
+        <div className={"container mx-auto"}>
+          <GlobalHeader>
+            <NewsletterRegistration />
+          </GlobalHeader>
+          {props.children}
         </div>
       </body>
     </html>
