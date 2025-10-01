@@ -1,13 +1,33 @@
+import { revalidatePath } from "next/cache";
+
 import LikeIcon from "@/components/LikeIcon";
+import { mutateArticleLikes } from "@/queries/queries";
 
 type LikesWidgetProps = {
   articleId: string;
   currentLikes: number;
 };
 
-export function LikesWidget({ currentLikes }: LikesWidgetProps) {
+export function LikesWidget({ articleId, currentLikes }: LikesWidgetProps) {
+
+  async function handleLikeClick() { // <--- Next.js stellt HTTP Endpunkt zur Verfügung
+    "use server"; // <-- Server Function oder Server Action
+
+    // process.exit();
+
+    console.log(articleId);
+    await mutateArticleLikes(articleId);
+
+    revalidatePath(`/articles/${articleId}`)
+    revalidatePath(`/articles`)
+  }
+
   return (
-    <div className={"inline-block"}>
+    <form className={"inline-block"}
+      action={handleLikeClick}
+    >
+
+      <input type={"hidden"} name={"newLikes"} value={currentLikes + 1} />
       <button
         type={"submit"}
         className={
@@ -19,6 +39,6 @@ export function LikesWidget({ currentLikes }: LikesWidgetProps) {
           {currentLikes}
         </span>
       </button>
-    </div>
+    </form>
   );
 }

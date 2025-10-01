@@ -1,7 +1,7 @@
 // @GetMapping("/articles/{articleId}")
 
 import { notFound } from "next/navigation";
-import { ReactNode, Suspense } from "react";
+import { Suspense } from "react";
 
 import RelatedArticleCard from "@/app/articles/[articleId]/RelatedArticleCard";
 import RelatedArticleSlider from "@/app/articles/[articleId]/RelatedArticleSlider";
@@ -78,26 +78,26 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
 }
 
-// Render Properties
-
-function Story() {
-  return <Layout>
-    { (titleSize) => {
-      return <h1
-        className={titleSize === "sm" ? "Small" : "Large"} >
-        ...</h1>
-    } }
-  </Layout>
-}
-
-
-type LayoutProps = {
-  children: (titleSize: string) => ReactNode
-}
-function Layout(props: LayoutProps) {
-
-  const titleSize = "...";
-  return <div>
-    {props.children(titleSize)}
-  </div>
-}
+// children-as-a-function Render Properties
+//
+// function Story() {
+//   return <Layout>
+//     { (titleSize) => {
+//       return <h1
+//         className={titleSize === "sm" ? "Small" : "Large"} >
+//         ...</h1>
+//     } }
+//   </Layout>
+// }
+//
+//
+// type LayoutProps = {
+//   children: (titleSize: string) => ReactNode
+// }
+// function Layout(props: LayoutProps) {
+//
+//   const titleSize = "...";
+//   return <div>
+//     {props.children(titleSize)}
+//   </div>
+// }
