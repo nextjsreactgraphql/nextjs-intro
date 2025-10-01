@@ -22,7 +22,7 @@ export const delayConfig: Record<string, number> = {
   GetRelatedArticles: 0,
 
   // Delay the response in LikesWidget
-  AddLike: 0,
+  AddLike: 6000,
 };
 
 // Setting this to 'force-cache' will enable Next.js

@@ -1,7 +1,11 @@
-import { revalidatePath } from "next/cache";
+"use client"
 
+
+import { useOptimistic, useTransition } from "react";
+
+import { addLike } from "@/components/like-actions";
 import LikeIcon from "@/components/LikeIcon";
-import { mutateArticleLikes } from "@/queries/queries";
+import { LikeIndicator } from "@/components/LoadingIndicator";
 
 type LikesWidgetProps = {
   articleId: string;
@@ -10,35 +14,34 @@ type LikesWidgetProps = {
 
 export function LikesWidget({ articleId, currentLikes }: LikesWidgetProps) {
 
-  async function handleLikeClick() { // <--- Next.js stellt HTTP Endpunkt zur Verfügung
-    "use server"; // <-- Server Function oder Server Action
+  const [isPending, startTransition] = useTransition();
+  const [optimisticLikes, setOptimisticLikes] = useOptimistic(currentLikes);
 
-    // process.exit();
+  const handleLikeClick = () => {
+    startTransition(() => {
+      setOptimisticLikes(currentLikes + 1);
+      return addLike(articleId);
+    });
 
-    console.log(articleId);
-    await mutateArticleLikes(articleId);
-
-    revalidatePath(`/articles/${articleId}`)
-    revalidatePath(`/articles`)
   }
 
   return (
-    <form className={"inline-block"}
-      action={handleLikeClick}
-    >
+    <div className={"inline-block"}>
 
       <input type={"hidden"} name={"newLikes"} value={currentLikes + 1} />
       <button
-        type={"submit"}
+        disabled={isPending}
+        type={"button"}
+        onClick={() => handleLikeClick()}
         className={
           "flex space-x-2 rounded border border-slate-200 bg-slate-50 px-2 py-1 text-[15px] text-teal-700 hover:cursor-default hover:bg-teal-700 hover:text-white disabled:cursor-default disabled:border-teal-600 disabled:bg-teal-600 disabled:text-teal-50 disabled:hover:bg-teal-600"
         }
       >
         <span className={"ms-2"}>
-          <LikeIcon />
-          {currentLikes}
+          {isPending ? <LikeIndicator /> : <LikeIcon />}
+          {optimisticLikes} / {currentLikes}
         </span>
       </button>
-    </form>
+    </div>
   );
 }
