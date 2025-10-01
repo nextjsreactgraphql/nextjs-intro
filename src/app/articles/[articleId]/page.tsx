@@ -38,8 +38,9 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
   const {articleId} = await params;
 
+  // Request Wasserfall
+  const relatedArticles = fetchRelatedArticles(articleId);
   const article = await fetchArticle(articleId);
-  const relatedArticles =await  fetchRelatedArticles(articleId);
 
   if (!article) {
     throw notFound();
@@ -50,7 +51,9 @@ export default async function ArticlePage({params}: ArticlePageProps) {
     <TwoColumnLayout sidebar={<Sidebar>
       <SidebarBox title={"Related Articles"}>
 
-        <RelatedArticleSlider relatedArticles={relatedArticles} />
+        <Suspense fallback={<LoadingIndicator />}>
+          <RelatedArticleSlider relatedArticlesPromise={relatedArticles} />
+        </Suspense>
 
         {/*<MyArticleSliderDemo title={"Zähler"} initialValue={200}/>*/}
 
