@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
-import MyArticleSliderDemo from "@/app/articles/[articleId]/MyArticleSliderDemo";
+import RelatedArticleSlider from "@/app/articles/[articleId]/RelatedArticleSlider";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
 import CommentList from "@/components/articlepage/CommentList";
@@ -11,7 +11,7 @@ import TwoColumnLayout from "@/components/layout/TwoColumnLayout";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import { Sidebar } from "@/components/Sidebar";
 import { SidebarBox } from "@/components/SidebarBox";
-import { fetchArticle } from "@/queries/queries";
+import { fetchArticle, fetchRelatedArticles } from "@/queries/queries";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -39,6 +39,7 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   const {articleId} = await params;
 
   const article = await fetchArticle(articleId);
+  const relatedArticles =await  fetchRelatedArticles(articleId);
 
   if (!article) {
     throw notFound();
@@ -49,7 +50,9 @@ export default async function ArticlePage({params}: ArticlePageProps) {
     <TwoColumnLayout sidebar={<Sidebar>
       <SidebarBox title={"Related Articles"}>
 
-        <MyArticleSliderDemo title={"Zähler"} initialValue={200}/>
+        <RelatedArticleSlider relatedArticles={relatedArticles} />
+
+        {/*<MyArticleSliderDemo title={"Zähler"} initialValue={200}/>*/}
 
       </SidebarBox>
       <SidebarBox title={"Kommentare"}>
