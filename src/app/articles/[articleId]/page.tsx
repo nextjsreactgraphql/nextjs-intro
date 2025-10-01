@@ -3,6 +3,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import MyArticleSliderDemo from "@/app/articles/[articleId]/MyArticleSliderDemo";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
 import CommentList from "@/components/articlepage/CommentList";
@@ -46,6 +47,11 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   return <main>
     <ArticleBanner article={article} />
     <TwoColumnLayout sidebar={<Sidebar>
+      <SidebarBox title={"Related Articles"}>
+
+        <MyArticleSliderDemo title={"Zähler"} initialValue={200}/>
+
+      </SidebarBox>
       <SidebarBox title={"Kommentare"}>
         <Suspense fallback={<LoadingIndicator />}>
           <CommentList articleId={article.id} />
