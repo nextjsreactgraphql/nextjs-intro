@@ -1,14 +1,18 @@
 // @GetMapping("/articles/{articleId}")
 
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 
 import RelatedArticleCard from "@/app/articles/[articleId]/RelatedArticleCard";
+import RelatedArticleSlider from "@/app/articles/[articleId]/RelatedArticleSlider";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
+import CommentList from "@/components/articlepage/CommentList";
 import TwoColumnLayout from "@/components/layout/TwoColumnLayout";
+import LoadingIndicator from "@/components/LoadingIndicator";
+import { Sidebar } from "@/components/Sidebar";
+import { SidebarBox } from "@/components/SidebarBox";
 import { fetchArticle, fetchRelatedArticles } from "@/queries/queries";
-import { use } from "react";
-import ThemeContextProvider, { ThemeContext } from "@/app/articles/[articleId]/ThemeContext";
 
 type ArticlePageProps = {
   params: Promise<{
@@ -30,6 +34,9 @@ export default async function ArticlePage({params}: ArticlePageProps) {
 
   // console.log("Rendering ArticlePage", new Date().toLocaleTimeString());
 
+
+
+
   const {articleId} = await params;
 
   // Request Wasserfall
@@ -44,31 +51,29 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   if (!article) {
     throw notFound();
   }
-
-  const theme = "dark"
-  const lang = "de"
   
-  return <ThemeContextProvider>
-    <main>
+  return <main>
     <ArticleBanner article={article} />
-    {/*<TwoColumnArticleLayout article={article} theme={theme} />*/}
+    <TwoColumnLayout sidebar={<Sidebar>
+      <SidebarBox title={"Related Articles"}>
 
-    <TwoColumnLayout>
+        <Suspense fallback={<LoadingIndicator />}>
+          <RelatedArticleSlider relatedArticlesPromise={relatedArticles} />
+        </Suspense>
+
+        {/*<MyArticleSliderDemo title={"Zähler"} initialValue={200}/>*/}
+
+      </SidebarBox>
+      <SidebarBox title={"Kommentare"}>
+        <Suspense fallback={<LoadingIndicator />}>
+          <CommentList articleId={article.id} />
+        </Suspense>
+      </SidebarBox>
+    </Sidebar>}>
       <ArticleBody body={article.body} />
     </TwoColumnLayout>
   </main>
-  </ThemeContextProvider>
 
   // ....
 
-}
-// ---------------------------
-// "use client"
-function TwoColumnArticleLayout({lang}: any) {
-
-  const themeContext = use(ThemeContext);
-
-  themeContext.
-
-  return <ArticleBody body={"..."} theme={theme} lang={lang} />
 }
