@@ -1,6 +1,7 @@
 "use client"
 
 
+import { useRouter,useSearchParams } from "next/navigation";
 import { useOptimistic, useTransition } from "react";
 
 import { addLike } from "@/components/like-actions";
@@ -13,6 +14,14 @@ type LikesWidgetProps = {
 };
 
 export function LikesWidget({ articleId, currentLikes }: LikesWidgetProps) {
+
+  // Zugriff auf Search Params:
+  const params = useSearchParams();
+  params.get("orderBy")
+
+  // Zum Rendern einer anderen Route:
+  const router = useRouter();
+  router.push("...");
 
   const [isPending, startTransition] = useTransition();
   const [optimisticLikes, setOptimisticLikes] = useOptimistic(currentLikes);

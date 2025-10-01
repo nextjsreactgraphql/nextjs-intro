@@ -11,7 +11,16 @@ import { fetchArticleList } from "@/queries/queries";
 
 // export const dynamic = "force-dynamic";
 
-export default async function ArticleListPage() {
+type ArticleListPageProps = {
+  searchParams: Promise<{
+    orderBy: string
+  }>
+}
+
+export default async function ArticleListPage({searchParams}: ArticleListPageProps) {
+
+  console.log("SEARCH PARAMS", await searchParams)
+
 const theDate = new Date().toLocaleTimeString();
   console.log("Rendering ArticleListPage", theDate);
 
