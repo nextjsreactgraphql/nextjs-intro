@@ -3,6 +3,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 
+import RelatedArticleCard from "@/app/articles/[articleId]/RelatedArticleCard";
 import RelatedArticleSlider from "@/app/articles/[articleId]/RelatedArticleSlider";
 import { ArticleBanner } from "@/components/articlepage/ArticleBanner";
 import ArticleBody from "@/components/articlepage/ArticleBody";
@@ -39,7 +40,12 @@ export default async function ArticlePage({params}: ArticlePageProps) {
   const {articleId} = await params;
 
   // Request Wasserfall
-  const relatedArticles = fetchRelatedArticles(articleId);
+  const relatedArticles = fetchRelatedArticles(articleId)
+    .then(relatedArticles => relatedArticles.map(
+      a => <RelatedArticleCard key={a.id} relatedArticle={a} />
+    ))
+
+
   const article = await fetchArticle(articleId);
 
   if (!article) {

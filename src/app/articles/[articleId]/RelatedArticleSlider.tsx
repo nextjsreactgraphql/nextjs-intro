@@ -1,12 +1,10 @@
 "use client";
 
-import { use, useState } from "react";
+import { ReactNode, use, useState } from "react";
 
-import RelatedArticleCard from "@/app/articles/[articleId]/RelatedArticleCard";
-import { RelatedArticle } from "@/types";
 
 type RelatedArticleSliderProps = {
-  relatedArticlesPromise: Promise<RelatedArticle[]>;
+  relatedArticlesPromise: Promise<ReactNode[]>;
 };
 
 export default function RelatedArticleSlider(props: RelatedArticleSliderProps) {
@@ -35,7 +33,9 @@ export default function RelatedArticleSlider(props: RelatedArticleSliderProps) {
         <button onClick={() => handleIndexChange(+1)}>Weiter</button>
       </div>
 
-      <RelatedArticleCard relatedArticle={relatedArticles[index]} />
+      {relatedArticles[index]}
+
+      {/*<RelatedArticleCard relatedArticle={relatedArticles[index]} />*/}
     </div>
   );
 }
